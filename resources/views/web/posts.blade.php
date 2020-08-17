@@ -3,10 +3,24 @@
 @section('content')
 
 <div class="container shadow">
-	<div class="col-md-8 offset-md-2">
+	<div>
+		<strong>Categorias</strong>
+				@foreach ($categories as $categoria)
+					<a href="{{ route('category',$categoria->slug) }}">{{ $categoria->name }}</a>
+				@endforeach
+	</div>
+	<div>
+			<strong> Etiquetas: </strong>
+				@foreach ($tags as $tag)
+					<a href="{{ route('tag',$tag->slug) }}">{{ $tag->name }}</a>
+				@endforeach		
+	</div>
+	<div class="col-md-10 offset-md-1">
 		<h1>Lista de Noticias</h1>
 
+<div class="row">
 		@foreach ($posts as $post)
+	<div class="col-sm-4">
 		<div class="card">
 			<div class="card-header">
 				{{ $post->name }}
@@ -24,7 +38,10 @@
 
 		</div>
 		<br>
+			</div>
 		@endforeach
+</div>
+	
 
 		{{ $posts->links() }}	
 	</div>

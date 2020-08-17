@@ -13,9 +13,11 @@ class PageController extends Controller
 {
     public function blog()
     {
-    	$posts = Post::orderBy('id','desc')->where('status','PUBLISHER')->paginate(3);
+        $tags = Tag::all();
+        $categories = Category::all();
+    	$posts = Post::orderBy('id','desc')->where('status','PUBLISHER')->paginate(15);
 
-    	return view('web.posts',compact('posts'));
+    	return view('web.posts',compact('posts','tags','categories'));
     }
 
     public function post($slug)
@@ -27,19 +29,22 @@ class PageController extends Controller
 
     public function category($slug)
     {
-        $category = Category::where('slug',$slug)->pluck('id')->first();
-        $posts = Post::orderBy('name')->where('category_id',$category)->where('status','PUBLISHER')->paginate(3);
+        $tags = Tag::all();
+        $categories = Category::all();
+        $cat = Category::where('slug',$slug)->pluck('id')->first();
+        $posts = Post::orderBy('name')->where('category_id',$cat)->where('status','PUBLISHER')->paginate(15);
 
-        return view('web.posts',compact('posts'));
+        return view('web.posts',compact('posts','tags','categories'));
     }
 
     public function tag($slug)
     {
-
+        $tags = Tag::all();
+        $categories = Category::all();
         $tag = Tag::with('posts')->where('slug',$slug)->first();
-        $posts = $tag->posts()->where('status','PUBLISHER')->paginate(3);
+        $posts = $tag->posts()->where('status','PUBLISHER')->paginate(15);
         
-        return view('web.posts',compact('posts'));
+        return view('web.posts',compact('posts','tags','categories'));
 
     }
 }
