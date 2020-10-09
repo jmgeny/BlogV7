@@ -36,12 +36,13 @@
 				<hr>
 				<strong> Etiquetas: </strong>
 				@foreach ($post->tags as $tag)
-					<a href="{{ route('tag',$tag->slug) }}">{{ $tag->name }}</a>, 
+					<a href="{{ route('tag',$tag->slug) }}">{{ $tag->name }}</a>
 				@endforeach
 
 			</div>
 			<div class="card-footer">
-  						<a class="btn btn-warning" href="{{ route('admin.posts.edit', $post->id) }}">Editar</a>
+				<a class="btn btn-warning" href="{{ route('admin.posts.edit', $post->id) }}">Editar</a>
+				<a class="btn btn-success" href="{{ route('admin.posts.create') }}">Crear Post</a>
   			</div>
 
 		</div>							

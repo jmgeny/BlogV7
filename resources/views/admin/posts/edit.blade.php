@@ -22,8 +22,9 @@
 			<div class="col-md-8 offset-md-2">
 				<div class="card">
 					<div class="card-header">
-    					Editar de Entrada (Post)
-    					<a href="{{ route('admin.posts.index') }}" class="btn btn-sm btn-primary float-right">Regresar</a>
+            <p>Editar Post</p>
+    					<a href="{{ route('admin.posts.create') }}" class="btn btn-sm btn-primary float-left">Crear Nueva</a>
+              <a href="{{ route('admin.posts.index') }}" class="btn btn-sm btn-primary float-right">Regresar</a>
   				</div>
   					<form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
   							@csrf

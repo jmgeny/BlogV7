@@ -9,13 +9,35 @@ use App\Post;
 use App\Category;
 use App\Tag;
 
+
 class PageController extends Controller
 {
-    public function blog()
+
+    public function misPost($user_id)
     {
         $tags = Tag::all();
         $categories = Category::all();
-    	$posts = Post::orderBy('id','desc')->where('status','PUBLISHER')->paginate(15);
+
+        $posts = Post::orderByDesc('id')->where('user_id',$user_id)->paginate(6);
+
+        return view('web.posts',compact('posts','tags','categories'));
+
+    }
+
+    public function blog()
+    {
+
+        $tags = Tag::all();
+
+        $categories = Category::all();
+
+        $posts = Post::orderByDesc('id')->where('status','PUBLISHER')->paginate(6);
+
+        // $posts = Post::orderBy('id','desc')
+        //         ->where([
+        //             ['user_id','=',2],
+        //             ['status','=','PUBLISHER']
+        //     ])->paginate(20);
 
     	return view('web.posts',compact('posts','tags','categories'));
     }

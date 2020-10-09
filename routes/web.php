@@ -19,6 +19,8 @@ Auth::routes();
 
 //web
 Route::get('blog', 'Web\PageController@blog')->name('blog');
+Route::get('misPost/{user_id}','Web\PageController@misPost')->name('misPost');
+
 Route::get('entrada/{slug}','Web\PageController@post')->name('post');
 
 Route::get('categoria/{slug}', 'Web\PageController@category')->name('category');

@@ -43,6 +43,7 @@
   						</div>
   						<div class="card-footer">
   							<button type="submit" class="btn btn-primary">Editar</button>
+                <a href="{{ route('admin.tags.create') }}" class="btn btn-success">Nuevo Tag</a>
   						</div>
   					</form>
 				</div>				

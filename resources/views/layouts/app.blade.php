@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/93f901670c.js" crossorigin="anonymous"></script>
 
     <!-- Styles -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
@@ -23,61 +24,86 @@
     
 </head>
 <body>
+    
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }} 
+                    {{-- config('app.name', 'Laravel') --}}
+                    <img src="{{ asset('img/GenyParatriatlonTransparente.png') }}" alt=""> 
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+
+{{--                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> --}}
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('blog') }}">Blog Noticia</a></li>
-                    </ul>
+                <div class="link">
+                    <a href="https://www.facebook.com/juanmanuel.geny" class="fa fa-facebook" target="new"></a>
+                    <a href="http://instagram.com/juanmanuelgeny" class="fa fa-instagram" target="new"></a>
+                    <a href="https://twitter.com/paratriatlon" class="fa fa-twitter" target="new"></a>
+                    <a href="https://www.linkedin.com/in/jmgeny/" class="fa fa-linkedin" target="new"></a>
+                    <a href="mailto:juanmanuel.geny@gmail.com"><i class="fa fa-envelope"></i></a>
+                </div>
 
-                    <!-- Right Side Of Navbar -->
+                {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
+                <div>
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{ route('admin.categories.index') }}" class="dropdown-item"><strong>Adm. Categoria</strong></a>
-                                    <a href="{{ route('admin.posts.index') }}" class="dropdown-item"><strong>Adm. Entrada</strong></a>
-                                    <a href="{{ route('admin.tags.index') }}" class="dropdown-item"><strong>Adm. Etiquetas</strong></a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        {{-- Auth::user()->name --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
+                                        {{ __('Salir') }}
+                                </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
                             </li>
+                            @if (Route::has('register') and Auth::user()->name === 'Admin')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" href="{{ url('/') }}">Inicio</a>
+
+                  @guest
+                  @else
+                    <a class="nav-link" href="{{ route('misPost',Auth::user()->id) }}">Mis Post</a>
+                    <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Administrar <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('admin.categories.index') }}" class="dropdown-item"><strong>Adm. Categoria</strong></a>
+                                    <a href="{{ route('admin.posts.index') }}" class="dropdown-item"><strong>Adm. Entrada</strong></a>
+                                    <a href="{{ route('admin.tags.index') }}" class="dropdown-item"><strong>Adm. Etiquetas</strong></a>
+                                </div>
+                            </li>
+                  @endguest
+
+              </div>
+            </div>
+            </nav>
+        </div>            
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     @if (session('danger') or session('info'))
@@ -99,14 +125,12 @@
 
             @yield('content')
         </main>
+    
     </div>
 
 
 <script src="{{ asset('js/app.js') }}"></script>
  @yield('scripts')
  
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> --}}
 </body>
 </html>
